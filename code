@@ -1,0 +1,58 @@
+#control variables
+maybe_pos = True
+maybe_silent = True
+step = 1
+
+
+#asking for user input, making sure it is positive
+pos_integer = int(input("Enter a starting number: "))
+if pos_integer < 0:
+    while maybe_pos:
+        print("Invalid, try again")
+        pos_integer = int(input("Enter a starting number: "))
+        if pos_integer > 0:
+            maybe_pos = False
+#asking user if they want silent mode or not
+silent_mode = str.lower(input("Silent mode? (y/n) "))
+if silent_mode != "y" and silent_mode != "n":
+    while maybe_silent:
+        print("Invalid, try again")
+        silent_mode = str.lower(input("Silent mode? (y/n) "))
+        if silent_mode == "y" or silent_mode == "n":
+            maybe_silent = False 
+#creating a new varible to keep track of largest number
+if silent_mode == "n":
+    print()
+highest_number = pos_integer
+#will run until integer is 1
+while True:
+    if pos_integer != 1:
+        #case when integer is even
+        if pos_integer % 2 == 0:
+            even_odd = "even"
+            new_int = pos_integer // 2
+            expression = str(pos_integer) + " / 2 = " + str(new_int)
+        #case when integer is odd
+        elif pos_integer % 2 != 0:
+            even_odd = "odd"
+            new_int = (3 * pos_integer) + 1
+            expression = str(pos_integer) + " * 3 + 1 = " + str(new_int)
+    #breaking the loop when the integer is 1
+    elif pos_integer == 1:
+        even_odd = "odd"
+        expression = "stopping!"
+        if silent_mode == "n":
+            print(f"{step}. {pos_integer} -- {even_odd} -- {expression}")
+        break
+    #deciding whether or not to print output
+    if silent_mode == "n":
+        print(f"{step}. {pos_integer} -- {even_odd} -- {expression}")
+    step += 1
+    #keeping track of highest number
+    if new_int > highest_number:
+        highest_number = new_int
+    pos_integer = new_int
+#print no matter what
+print()
+print("Period:", step)
+print("Highest number:", format(highest_number, ",.0f"))
